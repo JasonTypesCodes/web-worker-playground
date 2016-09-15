@@ -1,0 +1,41 @@
+{
+  "name": "web-worker-playground",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "rm -rf ./build && mkdir ./build ./build/dist && cp ./src/index.html ./build/dist/index.html && node node_modules/.bin/webpack",
+    "serve": "webpack-dev-server --content-base src --inline --port 4100",
+    "typings": "typings",
+    "postinstall": "typings install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "image-webpack-loader": "^2.0.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.15.1",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.3",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.2"
+  },
+  "dependencies": {
+    "@angular/common": "^2.0.0",
+    "@angular/compiler": "^2.0.0",
+    "@angular/core": "^2.0.0",
+    "@angular/platform-browser": "^2.0.0",
+    "@angular/platform-browser-dynamic": "^2.0.0",
+    "core-js": "^2.4.1",
+    "jquery": "^3.1.0",
+    "reflect-metadata": "^0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "^0.6.23"
+  }
+}
