@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import fabric from '../../ext/fabric';
 import 'fabric/dist/fabric';
 
 @Component({
@@ -14,26 +13,26 @@ export class BallPitComponent implements OnInit {
     let c = new fabric.StaticCanvas('c');
     console.log(c);
 
-    let r = new fabric.Rect({
+    let r = new fabric.Circle({
       left: 100,
       top: 100,
       fill: 'red',
-      width: 20,
-      height: 20
+      radius: 40
     });
 
     c.add(r);
 
     let goRight:boolean = true;
     let left:number = 0;
-    const amount:number = 4;
-    const interval:number = 33;
+    const pxPerTime:number = 0.45;
+    let lastTime:number = -1;
 
-    setInterval(function() {
+    function draw(time:number) {
+      lastTime = (lastTime === -1) ? time : lastTime;
 
-      if((r.left + r.width) >= c.getWidth() || r.left <= 0){
-        goRight = !goRight;
-      }
+      let amount:number = (time - lastTime) * pxPerTime;
+
+      console.log('Amount is: ' + amount + ' : ' + lastTime + ' : ' + time);
 
       if(goRight){
         left+=amount;
@@ -41,11 +40,26 @@ export class BallPitComponent implements OnInit {
         left-=amount;
       }
 
+      if((r.left + r.width) > c.getWidth()){
+        goRight = !goRight;
+        left = c.getWidth() - r.width;
+      } else if(r.left < 0) {
+        left = 0;
+        goRight = !goRight;
+      }
+
       r.set('left', left);
 
-      c.renderAll();
-      console.log('Should be there');
-    }, interval);
+      lastTime = time;
 
+      c.renderAll();
+    }
+
+    function animationLoop(time:number) {
+      fabric.util.requestAnimFrame(animationLoop);
+      draw(time);
+    }
+
+    fabric.util.requestAnimFrame(animationLoop);
   }
 }
