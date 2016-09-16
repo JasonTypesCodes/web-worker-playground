@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    Hello World
+    <ball-pit></ball-pit>
   `
 })
 export class RootComponent {
