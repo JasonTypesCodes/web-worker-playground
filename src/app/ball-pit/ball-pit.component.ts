@@ -32,10 +32,8 @@ export class BallPitComponent implements OnInit {
 			- parseInt(docStyle.getPropertyValue("margin-top"));
 	  //console.log(docStyle);
 	  
-	  canvas.height = docHeight;
 	  canvas.style.height = docHeight + "px";
 	  c.setHeight(docHeight);
-	  canvas.width = docWidth;
 	  canvas.style.width = docWidth + "px";
 	  c.setWidth(docWidth);
 		
