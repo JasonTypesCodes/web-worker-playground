@@ -34,14 +34,14 @@ export class BallPitComponent implements OnInit {
 	  
 	  canvas.height = docHeight;
 	  canvas.style.height = docHeight + "px";
-	  c.height = docHeight;
+	  c.setHeight(docHeight);
 	  canvas.width = docWidth;
 	  canvas.style.width = docWidth + "px";
-	  c.width = docWidth;
+	  c.setWidth(docWidth);
 		
 	  let diameter:number = r.radius << 1;
-	  let width:number = c.getWidth() - diameter;
-	  let height:number = c.getHeight() - diameter;
+	  let width:number = docWidth - diameter;
+	  let height:number = docHeight - diameter;
 	  let xPos:number = (time * xVelocity) % width;
 	  let yPos:number = (time * yVelocity) % height;
 	  
