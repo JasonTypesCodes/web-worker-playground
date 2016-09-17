@@ -9,48 +9,36 @@ import 'fabric/dist/fabric';
 })
 export class BallPitComponent implements OnInit {
   ngOnInit() {
-    console.log('In Init!');
     let c = new fabric.StaticCanvas('c');
-    console.log(c);
 
     let r = new fabric.Circle({
-      left: 100,
+      left: 0,
       top: 100,
       fill: 'red',
-      radius: 40
+      radius: 40,
     });
 
     c.add(r);
 
-    let goRight:boolean = true;
-    let left:number = 0;
-    const pxPerTime:number = 0.45;
-    let lastTime:number = -1;
+	const xVelocity:number = 0.35;
+	const yVelocity:number = 0.22;
 
     function draw(time:number) {
-      lastTime = (lastTime === -1) ? time : lastTime;
-
-      let amount:number = (time - lastTime) * pxPerTime;
-
-      console.log('Amount is: ' + amount + ' : ' + lastTime + ' : ' + time);
-
-      if(goRight){
-        left+=amount;
-      } else {
-        left-=amount;
+	  let diameter:number = r.radius << 1;
+	  let width:number = c.getWidth() - diameter;
+	  let height:number = c.getHeight() - diameter;
+	  let xPos:number = (time * xVelocity) % width;
+	  let yPos:number = (time * yVelocity) % height;
+	  
+      if((((time * xVelocity) / width) % 2.0) >= 1.0) {
+		xPos = width - xPos;
+      }
+      if((((time * yVelocity) / height) % 2.0) >= 1.0) {
+		yPos = height - yPos;
       }
 
-      if((r.left + r.width) > c.getWidth()){
-        goRight = !goRight;
-        left = c.getWidth() - r.width;
-      } else if(r.left < 0) {
-        left = 0;
-        goRight = !goRight;
-      }
-
-      r.set('left', left);
-
-      lastTime = time;
+      r.set('left', xPos);
+	  r.set('top', yPos);
 
       c.renderAll();
     }
