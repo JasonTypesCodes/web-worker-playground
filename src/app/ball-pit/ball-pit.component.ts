@@ -17,13 +17,28 @@ export class BallPitComponent implements OnInit {
       fill: 'red',
       radius: 40,
     });
-
+	
     c.add(r);
 
+	let docBody = document.getElementsByTagName("body")[0];
+	let canvas = document.getElementById("c");
 	const xVelocity:number = 0.35;
 	const yVelocity:number = 0.22;
 
     function draw(time:number) {
+	  let docStyle = window.getComputedStyle(docBody, null);
+	  let docWidth = parseInt(docStyle.getPropertyValue("width"));
+	  let docHeight = parseInt(docStyle.getPropertyValue("height")) 
+			- parseInt(docStyle.getPropertyValue("margin-top"));
+	  //console.log(docStyle);
+	  
+	  canvas.height = docHeight;
+	  canvas.style.height = docHeight + "px";
+	  c.height = docHeight;
+	  canvas.width = docWidth;
+	  canvas.style.width = docWidth + "px";
+	  c.width = docWidth;
+		
 	  let diameter:number = r.radius << 1;
 	  let width:number = c.getWidth() - diameter;
 	  let height:number = c.getHeight() - diameter;
