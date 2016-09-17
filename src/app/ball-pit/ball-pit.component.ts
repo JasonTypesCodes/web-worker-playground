@@ -11,6 +11,7 @@ import 'fabric/dist/fabric';
 export class BallPitComponent implements OnInit {
   ngOnInit() {
     let c = new fabric.StaticCanvas('c');
+	
 	let circsA = [
 		ball('red', 40, 0.35, 0.22),
 		ball('blue', 50, 0.12, 0.45),
@@ -39,7 +40,7 @@ export class BallPitComponent implements OnInit {
 		circsA.forEach(function(item) {item.draw(time, docWidth, docHeight); });
 		
 		c.renderAll();
-    }
+	}
 	
 	function ball(bc:string, br:number, xV:number, yV:number) {
 		if (bc == undefined) {
@@ -67,16 +68,16 @@ export class BallPitComponent implements OnInit {
 			}),
 		
 			draw : function(time:number, docWidth:number, docHeight:number) {
-				let diameter:number = this.circle.radius << 1;
+				let diameter:number = this.circle.radius * 2;
 				let width:number = docWidth - diameter;
 				let height:number = docHeight - diameter;
 				let xPos:number = (time * this.xVelocity) % width;
 				let yPos:number = (time * this.yVelocity) % height;
 				  
-				if((((time * this.xVelocity) / width) % 2.0) >= 1.0) {
+				if((((time * this.xVelocity) / width) % 2) >= 1) {
 					xPos = width - xPos;
 				}
-				if((((time * this.yVelocity) / height) % 2.0) >= 1.0) {
+				if((((time * this.yVelocity) / height) % 2) >= 1) {
 					yPos = height - yPos;
 				}
 
