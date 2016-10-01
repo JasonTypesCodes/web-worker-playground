@@ -11,6 +11,8 @@ export class Ball implements Drawable {
     private yVelocity:number=0.2
   ) {
     this.circle = new fabric.Circle({fill: color, radius: radius});
+    this.circle.selectable = false;
+    this.circle.hasRotatingPoint = false;
   }
 
   getFabricObject() : fabric.ICircle {

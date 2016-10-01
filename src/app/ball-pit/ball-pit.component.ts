@@ -27,25 +27,29 @@ export class BallPitComponent implements OnInit {
     let docBody = document.getElementsByTagName("body")[0];
     let canvas = document.getElementById("c");
 
+    let canvasSet = false;
+
     function draw(time:number) {
       let docStyle = window.getComputedStyle(docBody, null);
       let docWidth = parseInt(docStyle.getPropertyValue("width"));
       let docHeight = parseInt(docStyle.getPropertyValue("height")) - parseInt(docStyle.getPropertyValue("margin-top"));
 
-      canvas.style.height = docHeight + "px";
-      c.setHeight(docHeight);
-      canvas.style.width = docWidth + "px";
-      c.setWidth(docWidth);
+      if(!canvasSet){
+        canvas.style.height = docHeight + "px";
+        c.setHeight(docHeight);
+        canvas.style.width = docWidth + "px";
+        c.setWidth(docWidth);
+        canvasSet = true;
+      }
 
       circsA.forEach(item => { item.draw(time, docWidth, docHeight) });
 
       c.renderAll();
     }
 
-
     function animationLoop(time:number) {
-      fabric.util.requestAnimFrame(animationLoop);
       draw(time);
+      fabric.util.requestAnimFrame(animationLoop);
     }
 
     fabric.util.requestAnimFrame(animationLoop);
